@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import Item from './components/Item';
 import Cart from './components/Cart';
+import Header from './components/Header';
+import Home from './components/Home';
+import { Route, Switch } from 'react-router-dom';
 
 class App extends Component {
   state = {
@@ -42,24 +44,14 @@ class App extends Component {
 
     return (
       <React.Fragment>
-        <header><h1>mouseHeav3an</h1></header>
-        <main>
-          <ul className="items">
-            {itemsForSale.map((item) => {
-              return (
-                <Item
-                  key={item.id}
-                  item={item}
-                  onAddClick={this.handleAddClick}
-                />
-              );
-            })}
-          </ul>
-          <Cart
-            cartItems={itemsInCart}
-            onCartRemoveItem={this.handleRemoveCartItem}
-          />
-        </main>
+        <Header cartItems={itemsInCart}/>
+        <div className="content">
+          <Switch>
+            <Route path="/Cart" render={props => <Cart cartItems={itemsInCart}
+            onCartRemoveItem={this.handleRemoveCartItem} {...props}/>}/>
+            <Route path="/" render={props => <Home itemsForSale={itemsForSale} onAddClick={this.handleAddClick} {...props}/>}/>
+          </Switch>
+        </div>
       </React.Fragment>
     );
   }

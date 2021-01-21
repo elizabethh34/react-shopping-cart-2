@@ -1,18 +1,9 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
 import CartItem from './CartItem';
+import { calculateTotal } from '../utils/calculateTotal';
 
 class Cart extends Component {
-  calculateCartTotal = (items) => {
-    let total = 0;
-    
-    for (const item of items) {
-      total += item.price;
-    }
-
-    return total;
-  }
-
   render() {
     const { cartItems, onCartRemoveItem } = this.props;
     let totalElement;
@@ -20,9 +11,9 @@ class Cart extends Component {
 
     if (cartItems.length > 0) {
       numInCart = <div className="number-of-items">{cartItems.length} {cartItems.length === 1 ? 'item' : 'items'} in cart</div>;
-      totalElement = <div className="total">Total: ${this.calculateCartTotal(cartItems).toFixed(2)}</div>;
+      totalElement = <div className="total">Total: ${calculateTotal(cartItems).toFixed(2)}</div>;
     } else {
-      numInCart = '';
+      numInCart = <div className="number-of-items">Your cart is empty</div>
       totalElement = '';
     }
 
@@ -42,6 +33,9 @@ class Cart extends Component {
         </ul>
         {numInCart}
         {totalElement}
+        <Link to="/" className="keep-shopping">
+          <i className="fas fa-chevron-left"></i>Keep Shopping
+        </Link>
       </aside>
     );
   }

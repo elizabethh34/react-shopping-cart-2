@@ -6,8 +6,8 @@ const CartItem = (props) => {
   return (
     <li className="cart-item">
       <div className="name">{item.name}</div>
-      <button onClick={() => onRemoveItem(item.cartId)}>X</button>
       <div className="price">@ {item.price}</div>
+      <button onClick={() => onRemoveItem(item.cartId)}><i className="far fa-times-circle"></i></button>
     </li>
   );
 }
